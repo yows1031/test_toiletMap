@@ -1,0 +1,315 @@
+.container {
+  width: 1140px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: lightblue;
+}
+@media (max-width: 470px) {
+  .container {
+    width: 364px;
+  }
+}
+
+.tabs:not(:last-child) {
+  margin-bottom: 0px;
+}
+
+header {
+  height: 200px;
+  background: skyblue;
+}
+@media (max-width: 470px) {
+  header {
+    height: 350px;
+  }
+}
+header .head {
+  font-size: 28px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 10px;
+}
+@media (max-width: 470px) {
+  header .head {
+    width: 100%;
+    font-size: 20px;
+    justify-content: center;
+  }
+}
+@media (max-width: 470px) {
+  header .spMode {
+    width: 90%;
+    padding-left: 50px;
+  }
+}
+header .nav {
+  width: 100%;
+  font-size: 16px;
+}
+header .nav div {
+  width: 120px;
+  height: 60px;
+}
+header .nav .is-active {
+  background: white;
+}
+header .nav a {
+  float: center;
+}
+@media (max-width: 470px) {
+  header .nav a {
+    float: left;
+  }
+}
+@media (max-width: 470px) {
+  header .nav {
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: 1fr 1fr;
+  }
+  header .nav .br {
+    display: none;
+  }
+  header .nav div {
+    width: 140px;
+    height: 30px;
+  }
+  header .nav div span {
+    font-size: 12pt;
+  }
+}
+
+main {
+  height: 600px;
+  background-image: url("../img/main.png");
+  background-size: 1150px 600px;
+}
+@media (max-width: 470px) {
+  main {
+    height: 465px;
+    background-size: 400px 300px;
+  }
+}
+main .index {
+  color: white;
+}
+@media (max-width: 470px) {
+  main .index {
+    font-size: 10pt;
+  }
+}
+
+/* footer */
+footer {
+  height: 25px;
+  background: white;
+}
+footer .footer {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0;
+}
+footer .suport {
+  box-sizing: border-box;
+  width: 200px;
+  padding: 0;
+}
+footer .suport img {
+  width: 50%;
+  height: 40%;
+}
+
+.pickMain {
+  width: 500px;
+  height: 200px;
+  background-image: url("../img/pickMain.png");
+  background-size: 100% 100%;
+  border: 2px solid red;
+  position: absolute;
+  top: 590px;
+  left: 70px;
+}
+@media (max-width: 470px) {
+  .pickMain {
+    height: 170px;
+    width: 365px;
+    top: 645px;
+    left: 0px;
+  }
+}
+
+.ekimae {
+  position: absolute;
+  top: 648px;
+  left: 180px;
+}
+@media (max-width: 470px) {
+  .ekimae {
+    top: 690px;
+    left: 70px;
+  }
+}
+
+.sumiyoshi {
+  position: absolute;
+  top: 612px;
+  left: 155px;
+}
+@media (max-width: 470px) {
+  .sumiyoshi {
+    top: 665px;
+    left: 75px;
+  }
+}
+
+.hebita {
+  position: absolute;
+  top: 617px;
+  left: 75px;
+}
+@media (max-width: 470px) {
+  .hebita {
+    top: 662px;
+    left: 10px;
+  }
+}
+
+.kama {
+  position: absolute;
+  top: 660px;
+  left: 80px;
+}
+@media (max-width: 470px) {
+  .kama {
+    top: 732px;
+    left: 25px;
+  }
+}
+
+.inai {
+  position: absolute;
+  top: 610px;
+  left: 300px;
+}
+@media (max-width: 470px) {
+  .inai {
+    top: 662px;
+    left: 165px;
+  }
+}
+
+.minato {
+  position: absolute;
+  top: 665px;
+  left: 290px;
+}
+@media (max-width: 470px) {
+  .minato {
+    top: 730px;
+    left: 145px;
+  }
+}
+
+.watanoha {
+  position: absolute;
+  top: 670px;
+  left: 440px;
+}
+@media (max-width: 470px) {
+  .watanoha {
+    top: 730px;
+    left: 235px;
+  }
+}
+
+.hagihama {
+  position: absolute;
+  top: 525px;
+  left: 680px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .hagihama {
+    top: 520px;
+    left: 220px;
+  }
+}
+
+.oshika {
+  position: absolute;
+  top: 640px;
+  left: 840px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .oshika {
+    top: 560px;
+    left: 280px;
+  }
+}
+
+.ogatsu {
+  position: absolute;
+  top: 310px;
+  left: 740px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .ogatsu {
+    top: 410px;
+    left: 250px;
+  }
+}
+
+.kitakami {
+  position: absolute;
+  top: 260px;
+  left: 610px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .kitakami {
+    top: 380px;
+    left: 200px;
+  }
+}
+
+.kahoku {
+  position: absolute;
+  top: 300px;
+  left: 300px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .kahoku {
+    top: 405px;
+    left: 95px;
+  }
+}
+
+.kanan {
+  position: absolute;
+  top: 380px;
+  left: 100px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .kanan {
+    top: 445px;
+    left: 45px;
+  }
+}
+
+.monou {
+  position: absolute;
+  top: 280px;
+  left: 140px;
+  border: solid 2px;
+}
+@media (max-width: 470px) {
+  .monou {
+    top: 385px;
+    left: 30px;
+  }
+}
+
+/*# sourceMappingURL=main3.css.map */

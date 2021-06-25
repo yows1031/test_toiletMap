@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <!-- このファイルはpug形式で書いています。(develop_BFM/pug/kahoku.pug)-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>石巻バリアフリーマップ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+    <link rel="stylesheet" href="css/main2.css">
+  </head>
+  <body class="container">
+    <header>
+      <div class="head"><img src="icon/head.png" alt="石巻バリアフーマップ。すぐ下には地域ごとのメニューがあります。地域ごとのページに進めば、各施設ごとの情報が見られます"></div>
+      <div class="spMode">
+        <div class="nav tabs is-centered is-boxed">
+          <div onclick="home()"><span>全体図</span></div>
+          <div onclick="station()"><span>石巻駅前</span></div>
+          <div onclick="sumiyoshi()"><span>住吉 山下</span></div>
+          <div onclick="minato()"><span>湊</span></div>
+          <div onclick="hebitaEast()"><span>蛇田（東地区）</span></div>
+          <div onclick="hebitaWest()"><span>蛇田（西地区）</span></div>
+          <div onclick="hebitaSouth()"><span>蛇田（南地区）</span></div>
+          <div onclick="watanoha()"><span>渡波</span></div>
+        </div>
+        <div class="nav tabs is-centered is-boxed">
+          <div onclick="inai()"><span>稲井</span></div>
+          <div onclick="kama()"><span>釜港 大街道</span></div>
+          <div onclick="kahoku()"><span>河北</span></div>
+          <div onclick="kanan()"><span>河南</span></div>
+          <div onclick="monou()"><span>桃生</span></div>
+          <div onclick="kitakami()"><span>北上</span></div>
+          <div onclick="ogatsu_hagihama()"><span>雄勝    </span></div>
+          <div onclick="oshika()"><span>牡鹿</span></div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="main">
+        <div class="checkBox">
+            <p>
+                <input type="checkbox" id="parkingCheck" name="parking" value="true"><img src="icon/parking.png">専用駐車場
+                <input type="checkbox" id="babybedCheck" name="babybed" value="true"><img src="icon/babybed.png">ベビーベッド
+                <input type="checkbox" id="ostomateCheck" name="ostomate" value="true"><img src="icon/ostomate.png">オストメイト
+                <input type="checkbox" id="multisheetCheck" name="multisheet" value="true"><img src="icon/multisheet.png">マルチシート<br>
+                <input type="checkbox" id="buttonCheck" name="button" value="true"><img src="icon/button.png">呼び出しボタン
+                <input type="checkbox" id="showwertoiltCheck" name="showertoilet" value="true"><img src="icon/showertoilet.png">シャワートイレ
+                検索：<input class="sortBox" type="text" name="textBox">
+            </p>
+        </div>
+        <!-- 地図メニュー-->
+        <div class="map" id="map">
+          <div class="infomationBorder"><img src="icon/border.png" alt="全体の地図です。下に各ポイントのボタンがあります。"></div>
+        </div>
+      </div>
+      <!-- マスク-->
+      <div class="hidden" id="mask"></div>
+      <!-- モーダル-->
+      <table class="hidden" id="modal">
+        <tbody>
+          <tr class="pointTittle">
+            <th id="thTitle" colspan="9"></th>
+          </tr>
+          <tr class="infomation">
+            <td class="icon" id="parkingIcon"></td>
+            <td class="text">専用駐車場</td>
+            <td class="sign" id="parkingSign"></td>
+            <td class="icon" id="babybedIcon"></td>
+            <td class="text">ベビーベッド</td>
+            <td class="sign" id="babybedSign"></td>
+            <td class="icon" id="multisheetIcon"></td>
+            <td class="text">マルチシート</td>
+            <td class="sign" id="multisheetSign"></td>
+          </tr>
+          <tr class="infomation">
+            <td class="icon" id="ostomateIcon"></td>
+            <td class="text">オストメイト</td>
+            <td class="sign" id="ostomateSign"></td>
+            <td class="icon" id="buttonIcon"></td>
+            <td class="text">呼び出しボタン</td>
+            <td class="sign" id="buttonSign"></td>
+            <td class="icon" id="shoewrtoiletIcon"></td>
+            <td class="text">シャワートイレ</td>
+            <td class="sing" id="showertoiletSign"></td>
+          </tr>
+          <tr class="time">
+            <td id="tdTime" colspan="9"></td>
+          </tr>
+          <tr class="slide">
+            <td class="pic" colspan="9"><img id="Prev" src="icon/left.png" alt="スライドショーのボタンです。上に詳細情報があります"><img id="target" alt="ここに写真が表示されます"><img id="Next" src="icon/right.png" alt="スライドショーのボタンです。上に詳細情報があります"></td>
+          </tr>
+          <tr class="pointData">
+            <td colspan="9">
+              <div class="under">
+                <nav>
+                  <ul class="subnav" id="thumbnails"></ul>
+                </nav>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <footer>
+      <div class="footer">
+        <div class="suport">
+          <p>Supported by Open Street Map</p><img src="img/itnav.png">
+        </div>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="js/bfmMap.js"></script>
+    <script src="js/modalBack.js"></script>
+    <!-- <script src="js/oshika/oshikaMapPoint.js"></script> -->
+    <script src="js/oshika/oshikaModal.js"></script>
+    <script src="js/oshika/new_oshikaMapPoint.js"></script>
+  </body>
+</html>
