@@ -78,14 +78,52 @@ const pointData = [
     lat:38.391484,lon:141.522424}, 
 ]
 
+const pushData =[];
+const parkingCheck = document.getElementById('parkingCheck');
+
+parkingCheck.addEventListener('change', function(){
+    console.log("checked");
+    checked();
+})
+function checked() {
+    let parkingFlag = false;
+
+    if (parkingCheck.checked) {
+        parkingFlag = true;
+        console.log("parkingTrue");
+        let parkingData = pointData.filter((point) => {
+            return (point.parking == "true");
+        });
+        pushData.push(parkingData);
+        console.log(pushData);
+    }
+
+    if(!parkingFlag) {
+        console.log("parkingFalse");
+        pushData.push(pointData)
+    }
+}
+
+checked();
+
 
 const popupContents =[];
 const lat =[];
 const lon =[];
+// console.log(pushData);
+// console.log(pointData);
+// const mappingData = [];
+// mappingData.push(pointData);
+// console.log(mappingData);
+// for (let i = 0; i < mappingData.length; i++) {
+//     console.log(mappingData[i].lat);
+//     popupContents.push(mappingData[i].popupContent);
+//     lat.push(mappingData[i].lat);
+//     lon.push(mappingData[i].lon);
+// }
 
 
 for (let i = 0; i < pointData.length; i++) {
-    // console.log(pointData);
     console.log(pointData[i].button);
     popupContents.push(pointData[i].popupContent);
     lat.push(pointData[i].lat);
