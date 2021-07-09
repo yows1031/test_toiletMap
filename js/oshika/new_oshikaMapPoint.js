@@ -1,7 +1,6 @@
 'use strict'
 
-const geojsonFeature = [];
-const markers = [];
+
 
 const pointData = [
     {name:"東洋館",
@@ -76,16 +75,31 @@ const pointData = [
     showertoilet:"true",
     popupContent:'<div class="popButton" onClick="modal_OshikaYoriiso()"><p>寄磯診療所</p></div>',
     lat:38.391484,lon:141.522424}, 
-]
+];
 
-const pushData =[];
+
+let geojsonFeature = [];
+let markers = [];
+let popupContents =[];
+let lat =[];
+let lon =[];
+
 const parkingCheck = document.getElementById('parkingCheck');
 
 parkingCheck.addEventListener('change', function(){
-    console.log("checked");
+    onMapRemoved();
     checked();
 })
+
 function checked() {
+    
+    let geojsonFeature = [];
+    let markers = [];
+    let popupContents =[];
+    let lat =[];
+    let lon =[];
+    
+   
     let parkingFlag = false;
 
     if (parkingCheck.checked) {
@@ -94,61 +108,47 @@ function checked() {
         let parkingData = pointData.filter((point) => {
             return (point.parking == "true");
         });
-        pushData.push(parkingData);
-        console.log(pushData);
+        for (let i = 0; i < parkingData.length; i++) {
+            popupContents.push(pointData[i].popupContent);
+            lat.push(pointData[i].lat);
+            lon.push(pointData[i].lon);
+        }
     }
 
     if(!parkingFlag) {
         console.log("parkingFalse");
-        pushData.push(pointData)
+        let parkingData = pointData;
+        for (let i = 0; i <parkingData.length; i++) {
+            popupContents.push(pointData[i].popupContent);
+            lat.push(pointData[i].lat);
+            lon.push(pointData[i].lon);
+        }
     }
-}
 
-checked();
-
-
-const popupContents =[];
-const lat =[];
-const lon =[];
-// console.log(pushData);
-// console.log(pointData);
-// const mappingData = [];
-// mappingData.push(pointData);
-// console.log(mappingData);
-// for (let i = 0; i < mappingData.length; i++) {
-//     console.log(mappingData[i].lat);
-//     popupContents.push(mappingData[i].popupContent);
-//     lat.push(mappingData[i].lat);
-//     lon.push(mappingData[i].lon);
-// }
-
-
-for (let i = 0; i < pointData.length; i++) {
-    console.log(pointData[i].button);
-    popupContents.push(pointData[i].popupContent);
-    lat.push(pointData[i].lat);
-    lon.push(pointData[i].lon);
-}
-
-
-for (let i = 0; i < popupContents.length; i++) {
-    geojsonFeature.push({
-        "type": "Feature",
-        "properties": {
-        "popupContent": popupContents[i],
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [lon[i], lat[i]] 
-    },
-    });
-}
     
+
+    for (var i = 0; i < popupContents.length; i++) {
+        geojsonFeature.push({
+            "type": "Feature",
+            "properties": {
+            "popupContent": popupContents[i],
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [lon[i], lat[i]] 
+        },
+        });
+    }
+
+    
+
     L.geoJson(geojsonFeature,
+
         {
+            
             onEachFeature: function(feature, layer){
+                
                 if(feature.properties && feature.properties.popupContent){
-                    // layer.bindPopup(feature.properties.popupContent,{autoClose:false});
                     layer.bindPopup(feature.properties.popupContent);
                     geojsonFeature.push(layer);
                 }
@@ -156,7 +156,19 @@ for (let i = 0; i < popupContents.length; i++) {
             pointToLayer: function (feature, latlng) {
                 let m = L.marker( latlng, { title : feature.properties.popupContent});
                 markers.push( m );
+                console.log(markers);
                 return m;
             }
             
-        }).addTo(map);
+        }
+    ).addTo(map);
+    
+    
+}
+
+function onMapRemoved() {
+       map.removeLayer(geoJson);
+    }
+
+
+checked();
