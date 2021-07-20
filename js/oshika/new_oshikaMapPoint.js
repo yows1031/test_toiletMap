@@ -98,6 +98,8 @@ function checked() {
     let popupContents =[];
     let lat =[];
     let lon =[];
+
+    
     
    
     let parkingFlag = false;
@@ -126,7 +128,49 @@ function checked() {
         }
     }
 
+    mapping(popupContents, lat, lon);
+
+    // for (var i = 0; i < popupContents.length; i++) {
+    //     geojsonFeature.push({
+    //         "type": "Feature",
+    //         "properties": {
+    //         "popupContent": popupContents[i],
+    //     },
+    //     "geometry": {
+    //       "type": "Point",
+    //       "coordinates": [lon[i], lat[i]] 
+    //     },
+    //     });
+    // }
+
     
+
+    // L.geoJson(geojsonFeature,
+
+    //     {
+            
+    //         onEachFeature: function(feature, layer){
+                
+    //             if(feature.properties && feature.properties.popupContent){
+    //                 layer.bindPopup(feature.properties.popupContent);
+    //                 geojsonFeature.push(layer);
+    //             }
+    //         },
+    //         pointToLayer: function (feature, latlng) {
+    //             let m = L.marker( latlng, { title : feature.properties.popupContent});
+    //             markers.push( m );
+    //             return m;
+    //         }
+            
+    //     }
+        
+    // ).addTo(map);
+    
+    // console.log(geoJson);
+}
+
+function mapping(popupContents, lat, lon) {
+    // document.getElementById('map').style.display = 'block';
 
     for (var i = 0; i < popupContents.length; i++) {
         geojsonFeature.push({
@@ -143,7 +187,7 @@ function checked() {
 
     
 
-    L.geoJson(geojsonFeature,
+   L.geoJson(geojsonFeature,
 
         {
             
@@ -163,23 +207,11 @@ function checked() {
         }
         
     ).addTo(map);
-    
-    // console.log(geoJson);
 }
 
 function onMapRemoved() {
-    
-    // const leaflet_marker_pane = document.getElementsByClassName('leaflet-pane leaflet-marker-pane');
-    // console.log(leaflet_marker_pane)
-    // leaflet_marker_pane.innerHTML = '';
-    // leaflet_marker_pane.remove(node);
-    // [].forEach.call(leaflet_marker_pane, function(element) {
-    //     element.classList.removeChild('leaflet-pane leaflet-marker-pane');
-    // });
-    // markers.clearLayers();
-    // document.getElementById('map').removeChild(node);
-    // geojsonFeature.clearLayers();
-    geoJson.clearLayers();
+
+    map.removeLayer(geojsonFeature);
  }
 
 
