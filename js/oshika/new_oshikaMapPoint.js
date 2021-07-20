@@ -92,7 +92,7 @@ parkingCheck.addEventListener('change', function(){
 })
 
 function checked() {
-    
+
     let geojsonFeature = [];
     let markers = [];
     let popupContents =[];
@@ -108,10 +108,11 @@ function checked() {
         let parkingData = pointData.filter((point) => {
             return (point.parking == "true");
         });
+        console.log(parkingData)
         for (let i = 0; i < parkingData.length; i++) {
-            popupContents.push(pointData[i].popupContent);
-            lat.push(pointData[i].lat);
-            lon.push(pointData[i].lon);
+            popupContents.push(parkingData[i].popupContent);
+            lat.push(parkingData[i].lat);
+            lon.push(parkingData[i].lon);
         }
     }
 
@@ -119,9 +120,9 @@ function checked() {
         console.log("parkingFalse");
         let parkingData = pointData;
         for (let i = 0; i <parkingData.length; i++) {
-            popupContents.push(pointData[i].popupContent);
-            lat.push(pointData[i].lat);
-            lon.push(pointData[i].lon);
+            popupContents.push(parkingData[i].popupContent);
+            lat.push(parkingData[i].lat);
+            lon.push(parkingData[i].lon);
         }
     }
 
@@ -156,19 +157,30 @@ function checked() {
             pointToLayer: function (feature, latlng) {
                 let m = L.marker( latlng, { title : feature.properties.popupContent});
                 markers.push( m );
-                console.log(markers);
                 return m;
             }
             
         }
+        
     ).addTo(map);
     
-    
+    // console.log(geoJson);
 }
 
 function onMapRemoved() {
-       map.removeLayer(geoJson);
-    }
+    
+    // const leaflet_marker_pane = document.getElementsByClassName('leaflet-pane leaflet-marker-pane');
+    // console.log(leaflet_marker_pane)
+    // leaflet_marker_pane.innerHTML = '';
+    // leaflet_marker_pane.remove(node);
+    // [].forEach.call(leaflet_marker_pane, function(element) {
+    //     element.classList.removeChild('leaflet-pane leaflet-marker-pane');
+    // });
+    // markers.clearLayers();
+    // document.getElementById('map').removeChild(node);
+    // geojsonFeature.clearLayers();
+    geoJson.clearLayers();
+ }
 
 
 checked();
