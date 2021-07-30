@@ -3,6 +3,7 @@
 
 
 const pointData = [
+
     {name:"東洋館",
     parking:"false",
     babybed:"false",
@@ -83,43 +84,41 @@ let markers = [];
 let popupContents =[];
 let lat =[];
 let lon =[];
+let mappingLayer;
+const checkBoxAll = document.querySelectorAll('input[type="checkbox"]');
 
-const parkingCheck = document.getElementById('parkingCheck');
-
-parkingCheck.addEventListener('change', function(){
-    onMapRemoved();
-    checked();
-})
+for (let i = 0; i < checkBoxAll.length; i++) {
+    checkBoxAll[i].addEventListener('change', function(){
+        onMapRemoved();
+        checked();
+    })
+}
 
 function checked() {
-
-    let geojsonFeature = [];
-    let markers = [];
+    
     let popupContents =[];
     let lat =[];
-    let lon =[];
-
-    
-    
-   
+    let lon =[]
     let parkingFlag = false;
+    let babybedFlag = false;
+
+let serchData;
 
     if (parkingCheck.checked) {
         parkingFlag = true;
         console.log("parkingTrue");
-        let parkingData = pointData.filter((point) => {
+        serchData = pointData.filter((point) => {
             return (point.parking == "true");
-        });
-        console.log(parkingData)
-        for (let i = 0; i < parkingData.length; i++) {
-            popupContents.push(parkingData[i].popupContent);
-            lat.push(parkingData[i].lat);
-            lon.push(parkingData[i].lon);
+        }); 
+       for (let i = 0; i < serchData.length; i++) {
+            popupContents.push(serchData[i].popupContent);
+            lat.push(serchData[i].lat);
+            lon.push(serchData[i].lon);
         }
-    }
+    } 
 
-    if(!parkingFlag) {
-        console.log("parkingFalse");
+    if(!parkingFlag && !babybedFlag) {
+        console.log("AllFalse");
         let parkingData = pointData;
         for (let i = 0; i <parkingData.length; i++) {
             popupContents.push(parkingData[i].popupContent);
@@ -130,48 +129,12 @@ function checked() {
 
     mapping(popupContents, lat, lon);
 
-    // for (var i = 0; i < popupContents.length; i++) {
-    //     geojsonFeature.push({
-    //         "type": "Feature",
-    //         "properties": {
-    //         "popupContent": popupContents[i],
-    //     },
-    //     "geometry": {
-    //       "type": "Point",
-    //       "coordinates": [lon[i], lat[i]] 
-    //     },
-    //     });
-    // }
 
-    
-
-    // L.geoJson(geojsonFeature,
-
-    //     {
-            
-    //         onEachFeature: function(feature, layer){
-                
-    //             if(feature.properties && feature.properties.popupContent){
-    //                 layer.bindPopup(feature.properties.popupContent);
-    //                 geojsonFeature.push(layer);
-    //             }
-    //         },
-    //         pointToLayer: function (feature, latlng) {
-    //             let m = L.marker( latlng, { title : feature.properties.popupContent});
-    //             markers.push( m );
-    //             return m;
-    //         }
-            
-    //     }
-        
-    // ).addTo(map);
-    
-    // console.log(geoJson);
 }
 
-function mapping(popupContents, lat, lon) {
-    // document.getElementById('map').style.display = 'block';
-
+// 配列の情報をマッピングする
+function mapping(popupContents, lat, lon,) {
+   
     for (var i = 0; i < popupContents.length; i++) {
         geojsonFeature.push({
             "type": "Feature",
@@ -185,9 +148,7 @@ function mapping(popupContents, lat, lon) {
         });
     }
 
-    
-
-   L.geoJson(geojsonFeature,
+    mappingLayer = L.geoJson(geojsonFeature,
 
         {
             
@@ -205,14 +166,18 @@ function mapping(popupContents, lat, lon) {
             }
             
         }
-        
-    ).addTo(map);
+            
+    )
+
+
+mappingLayer.addTo(map);
 }
 
+// geojsonFeatureをnullして、マップのマーカーを削除
 function onMapRemoved() {
-
-    map.removeLayer(geojsonFeature);
+    
+    geojsonFeature = [];
+    mappingLayer.onRemove(map);
  }
-
 
 checked();
