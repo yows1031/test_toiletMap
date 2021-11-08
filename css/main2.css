@@ -1,4 +1,7 @@
 @charset "UTF-8";
+#sortBox {
+    width:100px;
+}
 #modal {
   background: white;
   position: absolute;

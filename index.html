@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
     <link rel="stylesheet" href="css/main2.css">
+    <script src="js/mapping/pointData.js"></script>
+    <script src="js/mapping/modalData.js"></script>
   </head>
   <body class="container">
     <header>
@@ -43,11 +45,11 @@
                 <p>
                     <input type="checkbox" id="parkingCheck" name="parking" value=parking><img src="icon/parking.png">専用駐車場
                     <input type="checkbox" id="babybedCheck" name="babybed" value=babybed><img src="icon/babybed.png">ベビーベッド
-                    <input type="checkbox" id="ostomateCheck" name="ostomate" value=multisheet<img src="icon/ostomate.png">オストメイト
+                    <input type="checkbox" id="ostomateCheck" name="ostomate" value=multisheet><img src="icon/ostomate.png">オストメイト
                     <input type="checkbox" id="multisheetCheck" name="multisheet" value=ostomate><img src="icon/multisheet.png">マルチシート<br>
                     <input type="checkbox" id="buttonCheck" name="button" value=button><img src="icon/button.png">呼び出しボタン
-                    <input type="checkbox" id="showwertoiltCheck" name="showertoilet" value=showertoilet><img src="icon/showertoilet.png">シャワートイレ
-                    検索：<input class="sortBox" type="text" name="textBox">
+                    <input type="checkbox" id="showerToiletCheck" name="showertoilet" value=showertoilet><img src="icon/showertoilet.png">シャワートイレ
+                    検索：<input id="sortBox" onKeyUp="keyWordFilter()" type="text" name="textBox" value="">
                 </p>
             </form>
         </div>
@@ -115,8 +117,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="js/bfmMap.js"></script>
     <script src="js/modalBack.js"></script>
-    <!-- <script src="js/oshika/oshikaMapPoint.js"></script> -->
-    <script src="js/oshika/oshikaModal.js"></script>
-    <script src="js/oshika/new_oshikaMapPoint.js"></script>
+    <script src="js/mapping/sorting.js"></script>
+    <script src="js/mapping/modal.js"></script>
   </body>
 </html>
